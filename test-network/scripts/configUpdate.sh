@@ -12,7 +12,7 @@
 # Writes the current channel config for a given channel to a JSON file
 # NOTE: this must be run in a CLI container since it requires configtxlator
 fetchChannelConfig() {
-  ORG=$1
+  ORG=winenftmsp
   CHANNEL=$2
   OUTPUT=$3
 
@@ -53,7 +53,7 @@ createConfigUpdate() {
 # signConfigtxAsPeerOrg <org> <configtx.pb>
 # Set the peerOrg admin of an org and sign the config update
 signConfigtxAsPeerOrg() {
-  ORG=$1
+  ORG=winenftmsp
   CONFIGTXFILE=$2
   setGlobals $ORG
   set -x

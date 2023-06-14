@@ -5,8 +5,8 @@
 
 
 
-# default to using Org1
-ORG=${1:-Org1}
+# default to using winenftmsp
+ORG=winenftmsp
 
 # Exit on first error, print all commands.
 set -e
@@ -16,24 +16,16 @@ set -o pipefail
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." && pwd )"
 
 ORDERER_CA=${DIR}/test-network/organizations/ordererOrganizations/example.com/tlsca/tlsca.example.com-cert.pem
-PEER0_ORG1_CA=${DIR}/test-network/organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
-PEER0_ORG2_CA=${DIR}/test-network/organizations/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
-PEER0_ORG3_CA=${DIR}/test-network/organizations/peerOrganizations/org3.example.com/tlsca/tlsca.org3.example.com-cert.pem
+PEER0_ORG1_CA=${DIR}/test-network/organizations/peerOrganizations/winenftmsp.example.com/tlsca/tlsca.winenftmsp.example.com-cert.pem
 
 
-if [[ ${ORG,,} == "org1" || ${ORG,,} == "digibank" ]]; then
 
-   CORE_PEER_LOCALMSPID=Org1MSP
-   CORE_PEER_MSPCONFIGPATH=${DIR}/test-network/organizations/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+if [[ ${ORG,,} == "winenftmsp" || ${ORG,,} == "digibank" || ${ORG,,} == "winenftmsp" ]]; then
+
+   CORE_PEER_LOCALMSPID=winenftmsp
+   CORE_PEER_MSPCONFIGPATH=${DIR}/test-network/organizations/peerOrganizations/winenftmsp.example.com/users/Admin@winenftmsp.example.com/msp
    CORE_PEER_ADDRESS=localhost:7051
-   CORE_PEER_TLS_ROOTCERT_FILE=${DIR}/test-network/organizations/peerOrganizations/org1.example.com/tlsca/tlsca.org1.example.com-cert.pem
-
-elif [[ ${ORG,,} == "org2" || ${ORG,,} == "magnetocorp" ]]; then
-
-   CORE_PEER_LOCALMSPID=Org2MSP
-   CORE_PEER_MSPCONFIGPATH=${DIR}/test-network/organizations/peerOrganizations/org2.example.com/users/Admin@org2.example.com/msp
-   CORE_PEER_ADDRESS=localhost:9051
-   CORE_PEER_TLS_ROOTCERT_FILE=${DIR}/test-network/organizations/peerOrganizations/org2.example.com/tlsca/tlsca.org2.example.com-cert.pem
+   CORE_PEER_TLS_ROOTCERT_FILE=${DIR}/test-network/organizations/peerOrganizations/winenftmsp.example.com/tlsca/tlsca.winenftmsp.example.com-cert.pem
 
 else
    echo "Unknown \"$ORG\", please choose Org1/Digibank or Org2/Magnetocorp"
@@ -49,8 +41,6 @@ fi
 echo "CORE_PEER_TLS_ENABLED=true"
 echo "ORDERER_CA=${ORDERER_CA}"
 echo "PEER0_ORG1_CA=${PEER0_ORG1_CA}"
-echo "PEER0_ORG2_CA=${PEER0_ORG2_CA}"
-echo "PEER0_ORG3_CA=${PEER0_ORG3_CA}"
 
 echo "CORE_PEER_MSPCONFIGPATH=${CORE_PEER_MSPCONFIGPATH}"
 echo "CORE_PEER_ADDRESS=${CORE_PEER_ADDRESS}"
